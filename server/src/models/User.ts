@@ -15,6 +15,7 @@ const UserSchema = new User({
   age: Number,
   phone: {
     type: String,
+    unique: true,
     required: 'Phone number is required',
   }
 }, {

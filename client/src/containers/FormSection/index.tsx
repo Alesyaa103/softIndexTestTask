@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import CustomValidator from '../../helpers/validation';
 import PhoneInput from "react-phone-input-2";
 import { makeStyles } from '@material-ui/core/styles';
+import {IUser} from '../../logic/state';
+import { createUser } from '../../logic/actions';
 import {
   FormControl,
   FormLabel,
@@ -19,7 +22,7 @@ import "react-phone-input-2/lib/material.css";
 
 const useStyles = makeStyles((theme) => ({
   aside: {
-    width: '500px'
+    flex: 1
   },
   submit: {
     margin: theme.spacing(1),
@@ -36,17 +39,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-interface IUser {
-  firstName: string,
-  lastName: string,
-  gender: boolean,
-  age: number,
-  phone: string
-}
-
 const FormSection = () => {
   const classes = useStyles();
-  const [user, setUser] = useState<IUser>({
+  const dispatch = useDispatch();
+  const [user, setUser] = useState<Partial<IUser>>({
     firstName: '',
     lastName: '',
     gender: false,
@@ -127,6 +123,11 @@ const FormSection = () => {
     }
   }
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(createUser(user));
+  }
+
   useEffect(()=> {
     setIsSubmit(Object.values(userValidation).every((item) => item))
   }, [userValidation])
@@ -137,7 +138,7 @@ const FormSection = () => {
       <Typography component="h3" variant="h5">
         Add new user
       </Typography>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={onSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -175,9 +176,9 @@ const FormSection = () => {
           <PhoneInput
             onlyCountries={["ua", "us", "ru", "nl", "pl", "de"]}
             country={"ua"}
-            value={user.phone}
+            value={user.phone as string}
             onChange={handlePhoneInput}
-            onBlur={(e) => checkPhoneNumber(user.phone)}
+            onBlur={(e) => checkPhoneNumber(user.phone as string)}
             inputProps={{ name: 'phone', required: true }}
             isValid={!Boolean(errors.phone)}
           />
@@ -193,8 +194,8 @@ const FormSection = () => {
               onChange={handleChange}
               className={classes.group}
             >
-              <FormControlLabel value="true" control={<Radio />} label="Female" />
-              <FormControlLabel value="false" control={<Radio />} label="Male" />
+              <FormControlLabel value={true} control={<Radio />} label="Female" />
+              <FormControlLabel value={false} control={<Radio />} label="Male" />
             </RadioGroup>
           </FormControl>
         </Grid>
