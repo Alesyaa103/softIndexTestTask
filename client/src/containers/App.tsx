@@ -29,7 +29,7 @@ function App() {
       <Provider store={store}>
         <ThemeProvider>
           <div className={classes.root}>
-            <Grid container spacing={2} direction={matches ? 'column-reverse' : 'row'}>
+            <Grid container spacing={3} direction={matches ? 'column-reverse' : 'row'}>
               <Grid item xs={12} md={8}>
                 <Paper className={classes.paper}>
                   <TableSection />

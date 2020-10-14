@@ -8,11 +8,18 @@ import {
   TablePagination,
   Checkbox,
 } from '@material-ui/core';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { RootState, IUser } from 'logic/state';
 import { useSelector, useDispatch } from 'react-redux';
 import TableBar from './components/TableBar';
 import TableHeader from './components/TableHeader';
 import { getAllUsers, deleteUsers } from 'logic/actions';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    padding: theme.spacing(2)
+  }
+}))
 
 function descendingComparator(a: IUser, b: IUser, orderBy: keyof IUser): number {
   if ((Number(a[orderBy]) && Number(b[orderBy])) || b[orderBy] === 0 || a[orderBy] === 0) {
@@ -69,7 +76,8 @@ function stableSort(array: IUser[], comparator: (a: IUser, b: IUser) => number, 
 
 const TableSection = () => {
   const dispatch = useDispatch();
-
+  const classes = useStyles();
+  
   const [order, setOrder] = useState<Order>(Order.asc);
   const [orderBy, setOrderBy] = useState<keyof IUser>('lastName');
   const [filter, setFilter] = useState<Filter>({
@@ -151,7 +159,7 @@ const TableSection = () => {
   }, [filter, users, order, orderBy])
 
   return (
-    <div>
+    <div className={classes.container}>
       <TableBar
         numSelected={selected.length}
         handleFilterChange={handleFilterChange}
