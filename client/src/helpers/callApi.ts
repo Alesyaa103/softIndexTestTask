@@ -16,7 +16,6 @@ const throwIfResponseFailed= async (res: Response) => {
 		};
 
 		try {
-			console.log(res)
 			exception.clientException = await res.json();
 		} catch {}
 		throw exception;

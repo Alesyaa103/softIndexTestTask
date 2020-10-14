@@ -11,8 +11,10 @@ class UserController {
         next(new ErrorResponse(409, 'The phone number is already taken'));
       }
       const user = new User(req.body);
-      await user.save();
-      res.send(user);
+      await user.save().catch((error: any) => {
+        next(new ErrorResponse(409, error.message));
+      });
+      res.send(res);
     } catch (error) {
       next(new ErrorResponse(400, error.message));
     }

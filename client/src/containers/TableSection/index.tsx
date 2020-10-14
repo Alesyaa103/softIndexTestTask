@@ -103,7 +103,6 @@ const TableSection = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      console.log('1')
       const newSelecteds = filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => user._id);
       setSelected(newSelecteds);
       return;

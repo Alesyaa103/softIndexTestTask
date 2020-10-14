@@ -29,21 +29,12 @@ export const createUser = (user: Partial<IUser>) => async (dispatch: (arg0: { ty
       type: "success"
     })
   } catch (error) {
-    if (error.status === 409) {
-      store.addNotification({
-        ...notification,
-        title: "Error",
-        message: "The phone number is already taken",
-        type: "danger"
-      })
-    } else {
-      store.addNotification({
-        ...notification,
-        title: "Error",
-        message: "Could not create user",
-        type: "danger"
-      })
-    }
+    store.addNotification({
+      ...notification,
+      title: "Error",
+      message: error.clientException.message,
+      type: "danger"
+    })
   }
 }
 
