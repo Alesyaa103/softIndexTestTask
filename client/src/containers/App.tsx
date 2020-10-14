@@ -6,6 +6,8 @@ import store from '../store';
 import { Grid, Paper, useMediaQuery } from "@material-ui/core";
 import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
 import ThemeProvider from './ThemeProvider';
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -23,6 +25,7 @@ function App() {
   
   return (
     <main className="App">
+      <ReactNotification />
       <Provider store={store}>
         <ThemeProvider>
           <div className={classes.root}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableHead, TableRow, TableCell, Checkbox, TableSortLabel } from '@material-ui/core';
-import { IUser } from '../../../logic/state';
-import { Order } from '..';
+import { IUser } from 'logic/state';
+import { Order } from '../index';
 
 interface Props {
   numSelected: number,
@@ -26,7 +26,7 @@ const headCells: HeadCell[] = [
   { id: 'age',  label: 'Age', sort: true },
 ];
 
-const TableHeader = (props: Props) => {
+const TableHeader: React.FC<Props> = (props: Props) => {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
   const createSortHandler = (property: keyof IUser) => (event: React.MouseEvent<unknown>) => {

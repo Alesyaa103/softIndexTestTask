@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { FormControlLabel, Switch } from '@material-ui/core';
+import Header from 'components/Header';
 
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -48,17 +48,7 @@ const ThemeProvider: React.FC = ({ children }) => {
 
   return (
     <MuiThemeProvider theme={theme ? lightTheme : darkTheme}>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={theme}
-            onChange={handleChange}
-            name="theme"
-            color="secondary"
-          />
-        }
-        label={theme ? 'Dark theme' : 'Light theme'}
-      />
+      <Header theme={theme} handleChange={handleChange}/>
       {children}
     </MuiThemeProvider>
   )

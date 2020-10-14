@@ -7,11 +7,26 @@ interface RequestArgs {
 	body?: any;
 }
 
+const throwIfResponseFailed= async (res: Response) => {
+	if (!res.ok) {
+		const exception = {
+			status: res.status,
+			message: res.statusText,
+			clientException: null,
+		};
+
+		try {
+			console.log(res)
+			exception.clientException = await res.json();
+		} catch {}
+		throw exception;
+	}
+}
+
 const getArgs = (args: RequestArgs): RequestInit => {
 	const headers: Headers | string[][] | Record<string, string> | undefined = {};
 
 	let body;
-
 
   if (args.body) {
 		if (args.method === 'GET') {
@@ -34,6 +49,7 @@ const getUrl = (args: RequestArgs) => `${BASE_URL}api${args.endpoint}${args.quer
 export default async function callApi(args: RequestArgs): Promise<Response> {
 	try {
 		const res: Response = await fetch(getUrl(args), getArgs(args));
+		await throwIfResponseFailed(res);
 		return res;
 	} catch (err) {
 		throw err;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import CustomValidator from '../../helpers/validation';
+import CustomValidator from 'helpers/validation';
 import PhoneInput from "react-phone-input-2";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import {IUser} from '../../logic/state';
-import { createUser } from '../../logic/actions';
+import {IUser} from 'logic/state';
+import { createUser } from 'logic/actions';
 import {
   FormControl,
   FormLabel,
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   submit: {
     margin: theme.spacing(1),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
   form: {
     width: '100%',

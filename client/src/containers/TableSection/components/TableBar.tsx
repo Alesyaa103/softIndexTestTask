@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, lighten } from '@material-ui/core/styles';
+import { makeStyles, lighten, Theme, createStyles } from '@material-ui/core/styles';
 import {
   Toolbar,
   Typography,
@@ -17,11 +17,11 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Filter, Gender, Country } from '../index';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(3)
   },
   highlight:
     theme.palette.type === 'light'
@@ -56,7 +56,7 @@ interface Props {
   deleteSelected: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const TableBar = (props: Props) => {
+const TableBar: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const { numSelected, handleFilterChange, filter, deleteSelected } = props;
   return (

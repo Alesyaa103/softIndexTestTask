@@ -1,14 +1,20 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import User from '../models/User';
+import { ErrorResponse } from '../helpers/errorResponse';
 
 class UserController {
-  create = async (req: Request, res: Response): Promise<void> => {
+  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      const { phone } = req.body;
+      const existingUser = await User.findOne({ phone });
+      if (existingUser) {
+        next(new ErrorResponse(409, 'The phone number is already taken'));
+      }
       const user = new User(req.body);
       await user.save();
       res.send(user);
     } catch (error) {
-      res.status(400).send(error.message);
+      next(new ErrorResponse(400, error.message));
     }
   };
 

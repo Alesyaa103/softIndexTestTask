@@ -1,4 +1,4 @@
-import callApi from '../helpers/callApi';
+import callApi from 'helpers/callApi';
 import { IUser } from './state';
 
 export const create = async (user: Partial<IUser>) => {

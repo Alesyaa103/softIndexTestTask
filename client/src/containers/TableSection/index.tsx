@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { 
   Table,
   TableRow,
@@ -9,11 +8,11 @@ import {
   TablePagination,
   Checkbox,
 } from '@material-ui/core';
-import { RootState, IUser } from '../../logic/state';
+import { RootState, IUser } from 'logic/state';
 import { useSelector, useDispatch } from 'react-redux';
 import TableBar from './components/TableBar';
 import TableHeader from './components/TableHeader';
-import { getAllUsers, deleteUsers } from '../../logic/actions';
+import { getAllUsers, deleteUsers } from 'logic/actions';
 
 function descendingComparator(a: IUser, b: IUser, orderBy: keyof IUser): number {
   if ((Number(a[orderBy]) && Number(b[orderBy])) || b[orderBy] === 0 || a[orderBy] === 0) {
@@ -68,30 +67,7 @@ function stableSort(array: IUser[], comparator: (a: IUser, b: IUser) => number, 
   return sortedItems
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flex: 2,
-    },
-    table: {
-      width: '100%',
-    },
-    visuallyHidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-  }),
-);
-
 const TableSection = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const [order, setOrder] = useState<Order>(Order.asc);
@@ -175,7 +151,7 @@ const TableSection = () => {
   }, [filter, users, order, orderBy])
 
   return (
-    <div className={classes.root}>
+    <div>
       <TableBar
         numSelected={selected.length}
         handleFilterChange={handleFilterChange}

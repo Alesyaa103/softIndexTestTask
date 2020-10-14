@@ -13,6 +13,7 @@
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-notifications-component": "^2.4.1",
     "react-phone-input-2": "^2.13.8",
     "react-redux": "^7.2.1",
     "react-scripts": "3.4.3",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@types/react": "^16.9.51",
     "@types/react-dom": "^16.9.8",
+    "@types/react-notifications-component": "^2.4.0",
     "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
