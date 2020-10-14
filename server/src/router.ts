@@ -7,6 +7,7 @@ const userController = new UserController();
 router
   .get('/', userController.getAll)
   .post('/', userController.create)
-  .delete('/:id', userController.delete);
+  .delete('/users', userController.deleteUsers)
+  .delete('/:id', userController.deleteOne);
 
 export default router;

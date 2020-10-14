@@ -5,9 +5,7 @@ export const create = async (user: Partial<IUser>) => {
   const res = await callApi({
     endpoint: '/',
     method: 'POST',
-    body: {
-      ...user
-    }
+    body: user
   })
 
   return (await res.json()) as IUser;
@@ -22,10 +20,11 @@ export const getAll = async () => {
   return (await res.json()) as IUser[];
 }
 
-export const remove = async (id: string) => {
+export const removeUsers = async (IDs: string[]) => {
   const res = await callApi({
-    endpoint: `/${id}`,
+    endpoint: `/users`,
     method: 'DELETE',
+    body: IDs
   })
 
   return (await res.json()) as IUser;

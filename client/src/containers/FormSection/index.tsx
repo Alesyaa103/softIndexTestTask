@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import CustomValidator from '../../helpers/validation';
 import PhoneInput from "react-phone-input-2";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {IUser} from '../../logic/state';
 import { createUser } from '../../logic/actions';
 import {
@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import "react-phone-input-2/lib/material.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   aside: {
     flex: 1
   },
@@ -42,13 +42,14 @@ const useStyles = makeStyles((theme) => ({
 const FormSection = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [user, setUser] = useState<Partial<IUser>>({
+  const initialState: Partial<IUser> = {
     firstName: '',
     lastName: '',
     gender: false,
     age: 0,
     phone: ''
-  });
+  }
+  const [user, setUser] = useState<Partial<IUser>>(initialState);
 
   const [errors, setErrors] = useState({
     firstName: '',
@@ -126,6 +127,7 @@ const FormSection = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(createUser(user));
+    setUser({...user, ...initialState, phone: "+380"});
   }
 
   useEffect(()=> {
@@ -194,8 +196,8 @@ const FormSection = () => {
               onChange={handleChange}
               className={classes.group}
             >
-              <FormControlLabel value={true} control={<Radio />} label="Female" />
-              <FormControlLabel value={false} control={<Radio />} label="Male" />
+              <FormControlLabel value="true" control={<Radio />} label="Female" />
+              <FormControlLabel value="false" control={<Radio />} label="Male" />
             </RadioGroup>
           </FormControl>
         </Grid>

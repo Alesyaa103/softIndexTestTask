@@ -1,6 +1,6 @@
-import { CREATE_USER, GET_USERS, DELETE_USER } from './types';
+import { CREATE_USER, GET_USERS, DELETE_USERS } from './types';
 import { IUser } from './state';
-import { getAll, create, remove } from './service';
+import { getAll, create, removeUsers } from './service';
 
 export const getAllUsers = () => async (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
   try {
@@ -18,10 +18,10 @@ export const createUser = (user: Partial<IUser>) => async (dispatch: (arg0: { ty
   }
 }
 
-export const deleteUser = (id: string) => async (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const deleteUsers = (IDs: string[]) => async (dispatch: (arg0: { type: string; payload: any; }) => void) => {
   try {
-    const res = await remove(id);
-    dispatch({type: DELETE_USER, payload: res});
+    const res = await removeUsers(IDs);
+    dispatch({type: DELETE_USERS, payload: res});
   } catch (error) {
   }
 }

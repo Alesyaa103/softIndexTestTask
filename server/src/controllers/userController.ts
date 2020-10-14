@@ -12,7 +12,7 @@ class UserController {
     }
   };
 
-  delete = async (req: Request, res: Response): Promise<void> => {
+  deleteOne = async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
       const user = await User.findByIdAndDelete(id);
@@ -30,6 +30,24 @@ class UserController {
       res.status(400).send(error.message);
     }
   };
+
+  deleteUsers = async (req: Request, res: Response): Promise<void> => {
+    const IDs = req.body;
+    User.deleteMany(
+      {
+        _id: {
+          $in: IDs
+        }
+      },
+      (err: Error) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(IDs);
+        }
+      }
+    );
+  }
 }
 
 export default UserController;

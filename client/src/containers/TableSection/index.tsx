@@ -7,14 +7,13 @@ import {
   TableCell,
   TableContainer,
   TablePagination,
-  Paper,
   Checkbox,
 } from '@material-ui/core';
 import { RootState, IUser } from '../../logic/state';
 import { useSelector, useDispatch } from 'react-redux';
 import TableBar from './components/TableBar';
 import TableHeader from './components/TableHeader';
-import { getAllUsers } from '../../logic/actions';
+import { getAllUsers, deleteUsers } from '../../logic/actions';
 
 function descendingComparator(a: IUser, b: IUser, orderBy: keyof IUser): number {
   if ((Number(a[orderBy]) && Number(b[orderBy])) || b[orderBy] === 0 || a[orderBy] === 0) {
@@ -73,10 +72,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flex: 2,
-    },
-    paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
     },
     table: {
       width: '100%',
@@ -160,6 +155,11 @@ const TableSection = () => {
     setPage(0);
   };
 
+  const deleteSelected = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(deleteUsers(selected));
+    setSelected([]);
+  }
+
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, filteredUsers.length - page * rowsPerPage);
@@ -175,75 +175,77 @@ const TableSection = () => {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <TableBar numSelected={selected.length} handleFilterChange={handleFilterChange} filter={filter}/>
-        <TableContainer>
-          <Table
-            aria-labelledby="tableTitle"
-            size='medium'
-            aria-label="table"
-          >
-            <TableHeader
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={filteredUsers.length}
-            />
-            <TableBody>
-              { filteredUsers
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row._id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row._id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row._id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row">
-                        {row.firstName}
-                      </TableCell>
-                      <TableCell>{row.lastName}</TableCell>
-                      <TableCell>
-                        {String(row.gender) === Gender.female ? 'female' : 'male'}
-                      </TableCell>
-                      <TableCell>{row.phone}</TableCell>
-                      <TableCell>{row.age}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 33 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10]}
-          component="div"
-          count={filteredUsers.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
+      <TableBar
+        numSelected={selected.length}
+        handleFilterChange={handleFilterChange}
+        filter={filter}
+        deleteSelected={deleteSelected}
+      />
+      <TableContainer>
+        <Table
+          aria-labelledby="tableTitle"
+          size='medium'
+          aria-label="table"
+        >
+          <TableHeader
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={filteredUsers.length}
+          />
+          <TableBody>
+            { filteredUsers
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const isItemSelected = isSelected(row._id);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row._id)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row._id}
+                    selected={isItemSelected}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isItemSelected}
+                        inputProps={{ 'aria-labelledby': labelId }}
+                      />
+                    </TableCell>
+                    <TableCell component="th" id={labelId} scope="row">
+                      {row.firstName}
+                    </TableCell>
+                    <TableCell>{row.lastName}</TableCell>
+                    <TableCell>
+                      {String(row.gender) === Gender.female ? 'female' : 'male'}
+                    </TableCell>
+                    <TableCell>{row.phone}</TableCell>
+                    <TableCell>{row.age}</TableCell>
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 33 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10]}
+        component="div"
+        count={filteredUsers.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </div>
   );
 };
