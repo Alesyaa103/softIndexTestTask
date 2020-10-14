@@ -16,6 +16,9 @@ app.use(
 app.use('/api', router);
 app.use(errorHandlerMiddleware);
 
+// eslint-disable-next-line no-unused-vars
+app.use('/', (req, res, next) => res.sendStatus(200));
+
 app.listen(env.app.port, () => {
   // eslint-disable-next-line no-console
   console.log(`Server listening on port ${env.app.port}!`);
