@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(2)
   },
   highlight:
     theme.palette.type === 'light'
@@ -61,11 +62,11 @@ const TableBar = (props: Props) => {
   return (
     <Toolbar className={`${classes.root} ${numSelected > 0 && classes.highlight}`}>
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <Typography className={classes.title} color="inherit" variant="subtitle1" component="h3">
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        <Typography className={classes.title} variant="h5" id="tableTitle" component="h3">
           Users
         </Typography>
       )}
@@ -79,7 +80,7 @@ const TableBar = (props: Props) => {
       ) : (
         <div title="Filter list" className={classes.sortContainer}>
           <FormControl component="fieldset" className={classes.formControl}>
-            <FormLabel component="legend">Gender</FormLabel>
+            <FormLabel component="legend" id="gender-title">Gender</FormLabel>
             <RadioGroup aria-label="gender" name="gender" value={filter.gender} onChange={handleFilterChange} className={classes.group}>
               <FormControlLabel value={Gender.female} control={<Radio />} label="Female" />
               <FormControlLabel value={Gender.male} control={<Radio />} label="Male" />

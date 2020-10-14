@@ -17,18 +17,13 @@ code {
   box-sizing: border-box;
 }
 
-.special-label,
-.react-tel-input input {
-  background-color: #fafafa !important;
-}
-
 .react-tel-input .form-control+div:before {
   content: 'Phone';
   position: absolute;
   top: -7px;
   left: 25px;
   display: block;
-  background: #fafafa;
+  background:inherit;
   padding: 0 5px;
   font-size: 13px;
   white-space: nowrap;
@@ -58,3 +53,6 @@ code {
   width: 100% !important;
 }
 
+#gender, #gender-title {
+  color: rgba(255, 255, 255, 0.7) !important;
+}

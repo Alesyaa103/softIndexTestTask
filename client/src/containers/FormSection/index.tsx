@@ -22,7 +22,8 @@ import "react-phone-input-2/lib/material.css";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   aside: {
-    flex: 1
+    flex: 1,
+    padding: theme.spacing(3)
   },
   submit: {
     margin: theme.spacing(1),
@@ -36,6 +37,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   phoneInput: {
     backgroundColor: '#fafafa'
+  },
+  inputClass: {
+    backgroundColor: theme.phoneInput.bg,
+    color: theme.phoneInput.text
+  },
+  buttonClass: {
+    '&::before': {
+      content: 'Phone',
+      backgroundColor: theme.phoneInput.bg
+    }
   }
 }));
 
@@ -183,16 +194,18 @@ const FormSection = () => {
             onBlur={(e) => checkPhoneNumber(user.phone as string)}
             inputProps={{ name: 'phone', required: true }}
             isValid={!Boolean(errors.phone)}
+            inputClass={classes.inputClass}
+            buttonClass={classes.buttonClass}
           />
           <span className="error">{errors.phone}</span>
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl component="fieldset">
-            <FormLabel component="legend">Gender</FormLabel>
+            <FormLabel component="legend" id="gender">Gender</FormLabel>
             <RadioGroup
               aria-label="gender"
               name="gender"
-              value={user.gender}
+              value={String(user.gender)}
               onChange={handleChange}
               className={classes.group}
             >
@@ -218,7 +231,7 @@ const FormSection = () => {
             helperText={errors.age}
           />
         </Grid>
-        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={!isSubmit}>
+        <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit} disabled={!isSubmit}>
           Sign Up
         </Button>
         </Grid>

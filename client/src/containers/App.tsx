@@ -3,12 +3,14 @@ import { Provider } from 'react-redux';
 import FormSection from './FormSection';
 import TableSection from './TableSection';
 import store from '../store';
-import { Grid, Paper} from "@material-ui/core";
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Grid, Paper, useMediaQuery } from "@material-ui/core";
+import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
+import ThemeProvider from './ThemeProvider';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    padding: theme.spacing(4),
   },
   paper: {
     boxShadow: "0px 2px 7px rgba(0, 0, 0, 0.25)"
@@ -16,24 +18,28 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 function App() {
   const classes = useStyles();
-
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  
   return (
     <main className="App">
       <Provider store={store}>
-        <div className={classes.root}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={8}>
-              <Paper className={classes.paper}>
-                <TableSection />
-              </Paper>
+        <ThemeProvider>
+          <div className={classes.root}>
+            <Grid container spacing={2} direction={matches ? 'column-reverse' : 'row'}>
+              <Grid item xs={12} md={8}>
+                <Paper className={classes.paper}>
+                  <TableSection />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper className={classes.paper}>
+                  <FormSection />
+                </Paper>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Paper className={classes.paper}>
-                <FormSection />
-              </Paper>
-            </Grid>
-          </Grid>
-        </div>
+          </div>
+        </ThemeProvider>
       </Provider>
     </main>
   );

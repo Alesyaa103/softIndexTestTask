@@ -119,7 +119,8 @@ const TableSection = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((user) => user._id);
+      console.log('1')
+      const newSelecteds = filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => user._id);
       setSelected(newSelecteds);
       return;
     }
@@ -193,7 +194,7 @@ const TableSection = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={filteredUsers.length}
+            rowCount={rowsPerPage}
           />
           <TableBody>
             { filteredUsers
