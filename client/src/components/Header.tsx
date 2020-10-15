@@ -30,7 +30,7 @@ const Header:React.FC<Props> = (props: Props) => {
             color="secondary"
           />
         }
-        label={theme ? 'Dark theme' : 'Light theme'}
+        label={theme ? 'Light theme' : 'Dark theme'}
       />
     </AppBar>
   )
