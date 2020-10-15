@@ -31,7 +31,7 @@ const ThemeProvider: React.FC = ({ children }) => {
       type: 'light'
     },
     phoneInput: {
-      bg: '#fafafa !important',
+      bg: '#fff !important',
       text: '#000'
     }
   });
