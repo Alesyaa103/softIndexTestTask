@@ -1,4 +1,4 @@
-#How to run?
+# How to run?
 
 ## Important! add `.env` file to server folder
 #### `cd server/`
