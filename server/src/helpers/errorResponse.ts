@@ -14,7 +14,6 @@ export class ErrorResponse extends Error {
 
 export const handleError = (err: ErrorResponse, res: express.Response) => {
   const { statusCode = 404, message = 'unknown error detected' } = err;
-
   res.status(statusCode).json({
     status: 'error',
     statusCode,

@@ -12,9 +12,9 @@ class UserController {
       }
       const user = new User(req.body);
       await user.save().catch((error: any) => {
-        next(new ErrorResponse(409, error.message));
+        next(new ErrorResponse(400, error.message));
       });
-      res.send(res);
+      res.send(user);
     } catch (error) {
       next(new ErrorResponse(400, error.message));
     }

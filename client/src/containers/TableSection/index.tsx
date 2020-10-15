@@ -177,7 +177,7 @@ const TableSection = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={rowsPerPage}
+            rowCount={filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).length}
           />
           <TableBody>
             { filteredUsers

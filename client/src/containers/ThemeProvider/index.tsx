@@ -32,7 +32,7 @@ const ThemeProvider: React.FC = ({ children }) => {
     },
     phoneInput: {
       bg: '#fafafa !important',
-      text: '#ccc'
+      text: '#000'
     }
   });
 

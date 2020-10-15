@@ -26,7 +26,7 @@ export default class CustomValidator {
 	}
 
 	checkCharacters() {
-		if ((this.value as string).match(/^[a-zа-яёї][a-zа-яёї ]{0,}$/i)) {
+		if ((this.value as string).match(/^[a-zа-яёї][a-zа-яёї ]{0,}$/i) || (this.value as string) === '') {
 			return this;
 		} else {
 			this.errors.push(

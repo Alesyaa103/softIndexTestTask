@@ -141,6 +141,7 @@ const FormSection = () => {
     e.preventDefault();
     dispatch(createUser(user));
     setUser({...user, ...initialState, phone: "+380"});
+    setIsSubmit(false);
   }
 
   useEffect(()=> {

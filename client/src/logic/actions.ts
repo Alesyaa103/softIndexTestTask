@@ -45,7 +45,7 @@ export const deleteUsers = (IDs: string[]) => async (dispatch: (arg0: { type: st
     store.addNotification({
       ...notification,
       title: "Success",
-      message: `${ IDs.length > 1 ? 'Users' : 'User' } was deleted`,
+      message: `${ IDs.length > 1 ? 'Users were' : 'User was' } deleted`,
       type: "success"
     })
   } catch (error) {
