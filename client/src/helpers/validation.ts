@@ -11,7 +11,7 @@ export default class CustomValidator {
 		if ((this.value as string).length >= 3) {
 			return this;
 		} else {
-			this.errors.push(`Field mast be longer.`);
+			this.errors.push(`Field must be longer.`);
 			return this;
 		}
 	}
@@ -20,7 +20,7 @@ export default class CustomValidator {
 		if ((this.value as string).length <= 40) {
 			return this;
 		} else {
-			this.errors.push(`Field mast be shorter.`);
+			this.errors.push(`Field must be shorter.`);
 			return this;
 		}
 	}
